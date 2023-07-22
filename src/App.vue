@@ -1,87 +1,157 @@
 <template>
-  <Bar
-    id="my-chart-id"
-    :options="chartOptions"
-    :data="chartData"
-  />
+ <div id="chart">
+  <div class="toolbar">
+    <button @click="selection = true" :class="{active: selection}">
+      SALES
+    </button>
+    
+    <button @click="selection = false" :class="{active: !selection}">
+        PROSPECTING
+    </button>
+  </div>
+
+  <div id="chart-timeline">
+    <VueApexCharts type="bar" height="350" :options="chartOptions" :series="series"/>
+  </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import VueApexCharts from "vue3-apexcharts";
 import { ref } from 'vue';
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-const CHART_COLORS = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)'
-}
-
-
-const chartData = ref({
-  labels: [ 'text1', 'text2', 'text3', 'text4', 'text5'],
-  datasets: [
-    {
-      label: 'Q1',
-      left: 400,
-      backgroundColor: CHART_COLORS.blue,
-      data: [-100, -120, -140, -150, -90],
-    },
-    {
-      label:  'Q2',
-      backgroundColor: CHART_COLORS.yellow,
-      data: [200, 230, 250, 250, 250],
-    },
-    {
-      label:  'Q3',
-      backgroundColor: CHART_COLORS.red,
-      data: [100, 150, 130, 100, 220],
-    },
-  ]
-})
+ const series  = ref([{
+  name: 'CERTAIN',
+  data: [4, 5.5, 4.1, 3.7, 2.2]
+}, {
+  name: 'EXPECTED',
+  data: [5.3, 3.2, 3.3, 5.2, 1.3]
+}, {
+  name: 'UNLIKELY',
+  data: [1.2, 1.7, 1.1, 9, 1.5]
+}])
 const chartOptions = ref({
-  indexAxis: 'y',	
-  plugins: {
-      title: {
-        display: true,
-        text: 'WHERE WE ARE GOING TO LAND ?',
-        align: 'start'
-      },
-      legend: {
-        display: true,
-        align: 'center'
-      }
+  chart: {
+    type: 'bar',
+    width: '100%',
+    height: '100%',
+    stacked: true,
+  },
+  colors: ['rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'],
+  plotOptions: {
+    bar: {
+      horizontal: true
     },
-	scales: {
-		x: {
-			ticks: {
-				color: 'black',
-				getLabelForValue: (value) => new Date(value)
-			},
-			stacked: true
-		},
-		y: {
-			display: true,
-			stacked: true,
-      beginAtZero: false,
-			ticks: {
-				stepSize: 200,
-				color: 'black'
-			}
-		}
-	}
+  },
+  stroke: {
+    width:0,
+    colors: ['#fff']
+  },
+  title: {
+    text: 'Where Are We Goind To Land?'
+  },
+  xaxis: {
+    categories: ['CURRENT MO.', 'NEXT MO.', 'FOLLOWING MO.', 'CURRENT Q.', 'NEXT Q'],
+    labels: {
+                formatter: function (val) {
+                  return val + "K"
+                }
+              }
+  },
+  yaxis: {
+    title: {
+      text: undefined
+    },
+  },
+  fill: {
+    opacity: 1
+  },
+  legend: {
+      position: 'top',
+      horizontalAlign: 'center', 
+      floating: true,
+      fontSize: '12px',
+      fontFamily: 'Helvetica, Arial',
+      fontWeight: 700,
+      markers: {
+          width: 90,
+          height: 16,
+          radius: 12,
+      },
+      onItemClick: {
+          toggleDataSeries: false
+      },
+      onItemHover: {
+          highlightDataSeries: false
+      },
+  },
+  grid: {
+    show: true,
+    borderColor: '#90A4AE',
+    strokeDashArray: 0,
+    position: 'back',
+    xaxis: {
+        lines: {
+            show: true
+        }
+    },   
+    yaxis: {
+        lines: {
+            show: false
+        }
+    },  
+    row: {
+        colors: undefined,
+        opacity: 1
+    },  
+    column: {
+        colors: 'undefined',
+        opacity: 0
+    },  
+    padding: {
+        top: 10,
+        right: 0,
+        bottom: 0,
+        left: 10
+    },  
+}
 })
+
+const selection = ref(true)
 </script>
 
 <style>
-#my-chart-id {
+#chart {
   height: 80vh;
   width: 80vw;
+  position: relative;
+}
+
+.toolbar {
+  position: absolute;
+  border: 2px solid #000;
+  right: 0;
+  z-index: 1000;
+}
+
+.apexcharts-legend {
+  top: 2px !important
+}
+button:focus, button:focus-visible,
+button {
+  border-radius: 0 !important;
+  border: 0 !important;
+  width: 120px;
+  font-size: 12px;
+  outline: 0;
+}
+
+.active {
+  background-color: rgb(54, 162, 235);
+}
+
+.apexcharts-legend-text {
+  position: absolute !important;
+  margin: auto !important;
+  color: white !important
 }
 </style>
