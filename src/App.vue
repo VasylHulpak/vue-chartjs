@@ -24,13 +24,13 @@ const selection = ref(true)
 
  const series  = ref([{
   name: 'CERTAIN',
-  data: [4, 5.5, 4.1,0,  3.7, 2.2]
+  data: [1.6, 1.1, 1.0, 0, 0.7, 0.95]
 }, {
   name: 'EXPECTED',
-  data: [5.3, 3.2, 3.3,0,  5.2, 1.3]
+  data: [1.75, 1.4, 1.45, 0, 1.25, 1.48]
 }, {
   name: 'UNLIKELY',
-  data: [1.2, 1.7, 1.1,0,  9, 1.5]
+  data: [2.2, 2.18, 2.1, 0, 1.8, 2.2]
 }])
 
 const chartOptions = ref({
@@ -68,7 +68,7 @@ const chartOptions = ref({
     categories: ['CURRENT MO.', 'NEXT MO.', 'FOLLOWING MO.', '', 'CURRENT Q.', 'NEXT Q'],
     labels: {
       formatter: function (val) {
-        const value = (val* 0.125 + 6.5).toString()
+        const value = (val + 6.5).toString()
         return "$" + (value.includes('.') ? value : value + '.0') + "M"
       }
     }
