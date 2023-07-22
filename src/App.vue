@@ -19,22 +19,33 @@
 <script setup lang="ts">
 import VueApexCharts from "vue3-apexcharts";
 import { ref } from 'vue';
+
+const selection = ref(true)
+
  const series  = ref([{
   name: 'CERTAIN',
-  data: [4, 5.5, 4.1, 3.7, 2.2]
+  data: [4, 5.5, 4.1,0,  3.7, 2.2]
 }, {
   name: 'EXPECTED',
-  data: [5.3, 3.2, 3.3, 5.2, 1.3]
+  data: [5.3, 3.2, 3.3,0,  5.2, 1.3]
 }, {
   name: 'UNLIKELY',
-  data: [1.2, 1.7, 1.1, 9, 1.5]
+  data: [1.2, 1.7, 1.1,0,  9, 1.5]
 }])
+
 const chartOptions = ref({
+  annotations: {
+    yaxis: [
+      {
+        y: '',
+        strokeDashArray: 10
+      }
+    ]
+},
   chart: {
     type: 'bar',
-    width: '100%',
-    height: '100%',
     stacked: true,
+    
   },
   colors: ['rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'],
   plotOptions: {
@@ -43,14 +54,18 @@ const chartOptions = ref({
     },
   },
   stroke: {
-    width:0,
+    width: 0,
     colors: ['#fff']
   },
   title: {
-    text: 'Where Are We Goind To Land?'
+    text: 'Where Are We Goind To Land?',
+    style: {
+      fontSize:  '20px',
+      fontWeight:  'bold'
+    },
   },
   xaxis: {
-    categories: ['CURRENT MO.', 'NEXT MO.', 'FOLLOWING MO.', 'CURRENT Q.', 'NEXT Q'],
+    categories: ['CURRENT MO.', 'NEXT MO.', 'FOLLOWING MO.', '', 'CURRENT Q.', 'NEXT Q'],
     labels: {
                 formatter: function (val) {
                   return val + "K"
@@ -116,7 +131,6 @@ const chartOptions = ref({
 }
 })
 
-const selection = ref(true)
 </script>
 
 <style>
