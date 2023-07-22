@@ -67,10 +67,11 @@ const chartOptions = ref({
   xaxis: {
     categories: ['CURRENT MO.', 'NEXT MO.', 'FOLLOWING MO.', '', 'CURRENT Q.', 'NEXT Q'],
     labels: {
-                formatter: function (val) {
-                  return val + "K"
-                }
-              }
+      formatter: function (val) {
+        const value = (val* 0.125 + 6.5).toString()
+        return "$" + (value.includes('.') ? value : value + '.0') + "M"
+      }
+    }
   },
   yaxis: {
     title: {
@@ -128,6 +129,9 @@ const chartOptions = ref({
         bottom: 0,
         left: 10
     },  
+},
+dataLabels: {
+  enabled: false
 }
 })
 
