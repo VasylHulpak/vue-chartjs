@@ -24,13 +24,13 @@ const selection = ref(true)
 
  const series  = ref([{
   name: 'CERTAIN',
-  data: [0.2, 0.3, 0.4, 0, 0.5, 0.5]
+  data: [0.4, 0.5, 0.6, 0, 0.5, 0.5]
 }, {
   name: 'EXPECTED',
-  data: [0.35, 1.1, 1.0, 0, 1.2, 1.2]
+  data: [0.80, 0.9, 0.75, 0, 0.75, 1.0]
 }, {
   name: 'UNLIKELY',
-  data: [0.25, 0.3, 0.35, 0, 1.0, 1.1]
+  data: [0.28, 0.347, 0.44, 0, 0.5, 0.5]
 }])
 
 const chartOptions = ref({
@@ -54,9 +54,8 @@ const chartOptions = ref({
     },
   },
   stroke: {
-    width: 0,
-    colors: ['#fff']
-  },
+      curve: "smooth"
+    },
   title: {
     text: 'Where Are We Goind To Land?',
     style: {
@@ -71,19 +70,13 @@ const chartOptions = ref({
         const value = (val + 6.5).toString()
         return "$" + (value.includes('.') ? value : value + '.0') + "M"
       }
-    },
-    stacked: true,
-    min: 0,
-    max: 9
+    }
   },
   yaxis: {
     title: {
       text: undefined
     },
     stacked: true
-  },
-  fill: {
-    opacity: 1
   },
   legend: {
       position: 'top',
@@ -175,5 +168,31 @@ button {
   position: absolute !important;
   margin: auto !important;
   color: white !important
+}
+
+.apexcharts-bar-series .apexcharts-series:nth-child(1) path:nth-child(1),
+.apexcharts-bar-series .apexcharts-series:nth-child(2) path:nth-child(1),
+.apexcharts-bar-series .apexcharts-series:nth-child(3) path:nth-child(1) {
+  translate: 220px;
+}
+.apexcharts-bar-series .apexcharts-series:nth-child(1) path:nth-child(2),
+.apexcharts-bar-series .apexcharts-series:nth-child(2) path:nth-child(2),
+.apexcharts-bar-series .apexcharts-series:nth-child(3) path:nth-child(2) {
+  translate: 120px;
+}
+.apexcharts-bar-series .apexcharts-series:nth-child(1) path:nth-child(3),
+.apexcharts-bar-series .apexcharts-series:nth-child(2) path:nth-child(3),
+.apexcharts-bar-series .apexcharts-series:nth-child(3) path:nth-child(3) {
+  translate: 100px;
+}
+.apexcharts-bar-series .apexcharts-series:nth-child(1) path:nth-child(5),
+.apexcharts-bar-series .apexcharts-series:nth-child(2) path:nth-child(5),
+.apexcharts-bar-series .apexcharts-series:nth-child(3) path:nth-child(5) {
+  translate: 50px;
+}
+.apexcharts-bar-series .apexcharts-series:nth-child(1) path:nth-child(6),
+.apexcharts-bar-series .apexcharts-series:nth-child(2) path:nth-child(6),
+.apexcharts-bar-series .apexcharts-series:nth-child(3) path:nth-child(6) {
+  translate: 90px;
 }
 </style>
