@@ -24,13 +24,13 @@ const selection = ref(true)
 
  const series  = ref([{
   name: 'CERTAIN',
-  data: [1.6, 1.1, 1.0, 0, 0.7, 0.95]
+  data: [0.2, 0.3, 0.4, 0, 0.5, 0.5]
 }, {
   name: 'EXPECTED',
-  data: [1.75, 1.4, 1.45, 0, 1.25, 1.48]
+  data: [0.35, 1.1, 1.0, 0, 1.2, 1.2]
 }, {
   name: 'UNLIKELY',
-  data: [2.2, 2.18, 2.1, 0, 1.8, 2.2]
+  data: [0.25, 0.3, 0.35, 0, 1.0, 1.1]
 }])
 
 const chartOptions = ref({
@@ -47,7 +47,7 @@ const chartOptions = ref({
     stacked: true,
     
   },
-  colors: ['rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'],
+  colors: ['#77b9e5', '#e7c81c', '#ee3f37'],
   plotOptions: {
     bar: {
       horizontal: true
@@ -71,12 +71,16 @@ const chartOptions = ref({
         const value = (val + 6.5).toString()
         return "$" + (value.includes('.') ? value : value + '.0') + "M"
       }
-    }
+    },
+    stacked: true,
+    min: 0,
+    max: 9
   },
   yaxis: {
     title: {
       text: undefined
     },
+    stacked: true
   },
   fill: {
     opacity: 1
@@ -164,7 +168,7 @@ button {
 }
 
 .active {
-  background-color: rgb(54, 162, 235);
+  background-color: #77b9e5;
 }
 
 .apexcharts-legend-text {
