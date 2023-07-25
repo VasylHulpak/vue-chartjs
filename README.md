@@ -2,4 +2,4 @@
 
 Simple project that use charjs on vue 3.
 
-![Alt text](image.png)
+![img.png](img.png)
